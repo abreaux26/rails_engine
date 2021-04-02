@@ -38,6 +38,7 @@ group :development, :test do
   gem 'orderly'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'fast_jsonapi'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
