@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/merchants(/:per_page/:page)', to: 'merchants#index', as: 'merchants'
+      get '/merchants/:id', to: 'merchants#show', as: 'merchant'
     end
   end
 end
