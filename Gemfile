@@ -36,6 +36,8 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'orderly'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
