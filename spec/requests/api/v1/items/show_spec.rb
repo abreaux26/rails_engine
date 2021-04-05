@@ -29,7 +29,6 @@ RSpec.describe "Item API" do
 
       expect(item[:data][:attributes]).to have_key(:merchant_id)
       expect(item[:data][:attributes][:merchant_id]).to be_a(Integer)
-
     end
   end
 
