@@ -11,7 +11,7 @@ RSpec.describe 'Merchant Items API' do
       get "/api/v1/items/#{@item.id}/merchant"
 
       merchant = JSON.parse(response.body, symbolize_names: true)
-
+      
       expect(response).to be_successful
 
       expect(merchant[:data]).to have_key(:id)

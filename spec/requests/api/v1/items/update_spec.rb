@@ -30,7 +30,7 @@ RSpec.describe '' do
       expect(response.status).to eq 404
     end
 
-    it 'bad merchant id returns 400 or 404' do
+    it 'bad merchant id returns 404' do
       previous_name = Item.last.name
       item_params = { merchant_id: 999999999999 }
       headers = {"CONTENT_TYPE" => "application/json"}
