@@ -38,10 +38,8 @@ RSpec.describe 'New Item API' do
 
       post '/api/v1/items', headers: headers, params: JSON.generate(item: item_params)
 
-      created_item = Item.last
-
-      expect(response).to be_successful
-      expect(response.body).to eq("Merchant must exist and Merchant can't be blank")
+      expect(response).not_to be_successful
+      expect(response.status).to eq 404
     end
 
     it 'ignores any attributes sent by the user which are not allowed' do
