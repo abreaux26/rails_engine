@@ -12,10 +12,14 @@ class Api::V1::ItemsController < ApplicationController
   def create
     item = Item.create(item_params)
     if item.save
-      render json: item
+      render json: ItemSerializer.new(item), status: :created
     else
       render json: item.errors.full_messages.to_sentence
     end
+  end
+
+  def destroy
+    render json: Item.delete(params[:id])
   end
 
   private

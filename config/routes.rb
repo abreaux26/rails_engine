@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :merchants, path: "merchants(/:per_page/:page)" , only: [:index, :show] do
         resources :items, controller: 'merchant_items', only: :index
       end
-      resources :items, path: "items(/:per_page/:page)" , only: [:index, :show, :create]
+      resources :items, path: "items(/:per_page/:page)"
     end
   end
 end
