@@ -20,7 +20,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def update
     item = Item.find(params[:id])
-    updated_item = item.update!(item_params)
+    item.update!(item_params)
     render json: ItemSerializer.new(item)
   end
 
@@ -31,6 +31,6 @@ class Api::V1::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :unit_price, :merchant_id )
+    params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
   end
 end
