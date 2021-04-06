@@ -12,4 +12,15 @@ RSpec.describe Item do
     it { should validate_presence_of :unit_price }
     it { should validate_presence_of :merchant_id }
   end
+
+  before :each do
+    @item_1 = create(:item, name: 'Turing')
+    @item_2 = create(:item, name: 'Ring World')
+  end
+
+  describe 'class methods' do
+    it '::order_by_name' do
+      expect(Item.order_by_name).to eq([@item_2, @item_1])
+    end
+  end
 end

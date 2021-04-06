@@ -10,13 +10,11 @@ RSpec.describe 'Find one Item API' do
 
   describe 'happy path' do
     it 'show one item by fragment' do
-      get '/api/vi/items/find_one?name=ring'
+      post '/api/v1/items/find_one?name=ring'
 
       expect(response).to be_successful
 
       ring_item = JSON.parse(response.body, symbolize_names: true)
-
-      expect(ring_item[:data].count).to eq(1)
 
       expect(ring_item[:data]).to have_key(:id)
       expect(ring_item[:data][:id].to_i).to be_an(Integer)

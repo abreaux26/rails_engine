@@ -29,6 +29,14 @@ class Api::V1::ItemsController < ApplicationController
     item.destroy
   end
 
+  def search
+    items = Item.order_by_name
+    if params[:name]
+      item = items.find { |p| p[:name].downcase.include? params[:name] }
+    end
+    render json: ItemSerializer.new(item)
+  end
+
   private
 
   def item_params
