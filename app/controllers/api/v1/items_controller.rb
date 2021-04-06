@@ -31,7 +31,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def search
     if params[:name]
-      item = Item.search_by_name(params[:name].downcase)
+      item = Item.search_by_name(params[:name].downcase).first
     end
     render json: ItemSerializer.new(item)
   end

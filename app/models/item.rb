@@ -9,6 +9,6 @@ class Item < ApplicationRecord
   validates :merchant_id, presence: true
 
   def self.search_by_name(name)
-    where("lower(name) LIKE '%#{name}%'").order(:name).first
+    where("lower(name) LIKE '%#{name}%'").order(:name)
   end
 end

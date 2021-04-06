@@ -20,7 +20,7 @@ RSpec.describe Item do
 
   describe 'class methods' do
     it '::search_by_name' do
-      expect(Item.search_by_name('ring')).to eq(@item_2)
+      expect(Item.search_by_name('ring')).to eq([@item_2, @item_1])
     end
   end
 end
