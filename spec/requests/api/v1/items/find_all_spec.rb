@@ -9,7 +9,7 @@ RSpec.describe 'Find all Items API' do
   end
 
   describe 'happy path' do
-    it 'show one item by fragment' do
+    it 'show all items by fragment' do
       get '/api/v1/items/find_all?name=ring'
 
       expect(response).to be_successful
