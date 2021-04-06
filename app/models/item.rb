@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true
   validates :merchant_id, presence: true
 
-  def self.order_by_name
-    order(:name)
+  def self.search_by_name(name)
+    where("lower(name) LIKE '%#{name}%'").order(:name).first
   end
 end

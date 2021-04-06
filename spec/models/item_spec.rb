@@ -19,8 +19,8 @@ RSpec.describe Item do
   end
 
   describe 'class methods' do
-    it '::order_by_name' do
-      expect(Item.order_by_name).to eq([@item_2, @item_1])
+    it '::search_by_name' do
+      expect(Item.search_by_name('ring')).to eq(@item_2)
     end
   end
 end

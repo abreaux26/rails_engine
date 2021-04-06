@@ -30,9 +30,8 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def search
-    items = Item.order_by_name
     if params[:name]
-      item = items.find { |p| p[:name].downcase.include? params[:name] }
+      item = Item.search_by_name(params[:name].downcase)
     end
     render json: ItemSerializer.new(item)
   end
