@@ -48,7 +48,7 @@ RSpec.describe 'Find one Item API' do
 
       ring_item = JSON.parse(response.body, symbolize_names: true)
 
-      expect(ring_item[:data]).to eq([])
+      expect(ring_item[:data]).to eq({})
     end
   end
 end

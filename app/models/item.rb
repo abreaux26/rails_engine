@@ -17,7 +17,12 @@ class Item < ApplicationRecord
   end
 
   def self.search_by_price(max_price, min_price)
-    where('unit_price between ? and ?', min_price, max_price).order(:name).first
+    if !max_price.nil? && !min_price.nil?
+      where('unit_price between ? and ?', min_price, max_price).order(:name).first
+    else
+      return search_by_max_price(max_price) unless max_price.nil?
+      return search_by_min_price(min_price) unless min_price.nil?
+    end
   end
 
   def destroy_invoices

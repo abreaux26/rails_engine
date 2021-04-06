@@ -46,7 +46,7 @@ RSpec.describe 'Find one Item API' do
 
       item = JSON.parse(response.body, symbolize_names: true)
 
-      expect(item[:data]).to eq([])
+      expect(item[:data]).to eq({})
     end
 
     it 'shows one item by max price' do
@@ -86,7 +86,7 @@ RSpec.describe 'Find one Item API' do
 
       item = JSON.parse(response.body, symbolize_names: true)
 
-      expect(item[:data]).to eq([])
+      expect(item[:data]).to eq({})
     end
 
     it 'shows one item between min and max price' do

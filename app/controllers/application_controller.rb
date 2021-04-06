@@ -19,6 +19,6 @@ class ApplicationController < ActionController::API
   end
 
   def record_bad_request
-    render json: {error: '400 Bad Request'}, status: :bad_request
+    render json: { error: '400 Bad Request' }, status: :bad_request
   end
 end

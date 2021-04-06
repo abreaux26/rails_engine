@@ -7,18 +7,14 @@ class Api::V1::SearchController < ApplicationController
   end
 
   def find_one
-    if params[:name]
-      item = Item.search_by_name(params[:name].downcase).first
-    elsif params[:max_price] && params[:min_price]
-      item = Item.search_by_price(params[:max_price], params[:min_price])
-    elsif params[:max_price]
-      item = Item.search_by_max_price(params[:max_price])
-    elsif params[:min_price]
-      item = Item.search_by_min_price(params[:min_price])
-    end
+    item = if params[:name]
+             Item.search_by_name(params[:name].downcase).first
+           else
+             Item.search_by_price(params[:max_price], params[:min_price])
+           end
 
     if item.nil?
-      render json: ItemSerializer.new([])
+      render json: NilSerializer.empty
     else
       render json: ItemSerializer.new(item)
     end
@@ -29,7 +25,7 @@ class Api::V1::SearchController < ApplicationController
   def validate_params
     if params[:name] && (params[:max_price] || params[:min_price])
       record_bad_request
-    elsif params[:max_price].to_i < 0 || params[:min_price].to_i < 0
+    elsif params[:max_price].to_i.negative? || params[:min_price].to_i.negative?
       record_bad_request
     end
   end
