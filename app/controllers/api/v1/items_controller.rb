@@ -22,10 +22,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    invoices = item.invoices
-    invoices.each do |invoice|
-      invoice.destroy if invoice.invoice_items.all? { |ii| ii.item_id == item.id }
-    end
+    item.destroy_invoices
     item.destroy
   end
 

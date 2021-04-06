@@ -19,4 +19,10 @@ class Item < ApplicationRecord
   def self.search_by_price(max_price, min_price)
     where('unit_price between ? and ?', min_price, max_price).order(:name).first
   end
+
+  def destroy_invoices
+    invoices.map do |invoice|
+      invoice.destroy if invoice.invoice_items.all? { |ii| ii.item_id == id }
+    end
+  end
 end
