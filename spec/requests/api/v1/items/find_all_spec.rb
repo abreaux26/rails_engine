@@ -42,13 +42,13 @@ RSpec.describe 'Find all Items API' do
 
   describe 'sad path' do
     it 'no fragment matched' do
-      get '/api/v1/items/find_one?name=NOMATCH'
+      get '/api/v1/items/find_all?name=NOMATCH'
 
       expect(response).to be_successful
 
-      ring_item = JSON.parse(response.body, symbolize_names: true)
+      ring_items = JSON.parse(response.body, symbolize_names: true)
 
-      expect(ring_item[:data]).to be_nil
+      expect(ring_items[:data]).to be_an(Array)
     end
   end
 end
