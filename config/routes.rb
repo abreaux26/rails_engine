@@ -7,8 +7,10 @@ Rails.application.routes.draw do
       end
       resources :items, path: "items(/:per_page/:page)" do
         resources :merchant, controller: 'items_merchant', only: :index
+        collection do
+          get '/find_one(/:name)', to: 'items#search'
+        end
       end
-      post 'items/find_one(/:name)', to: 'items#search'
     end
   end
 end

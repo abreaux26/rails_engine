@@ -10,7 +10,7 @@ RSpec.describe 'Find one Item API' do
 
   describe 'happy path' do
     it 'show one item by fragment' do
-      post '/api/v1/items/find_one?name=ring'
+      get '/api/v1/items/find_one?name=ring'
 
       expect(response).to be_successful
 
@@ -41,5 +41,8 @@ RSpec.describe 'Find one Item API' do
   end
 
   describe 'sad path' do
+    it 'no fragment matched' do
+
+    end
   end
 end
