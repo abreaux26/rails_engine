@@ -42,7 +42,13 @@ RSpec.describe 'Find one Item API' do
 
   describe 'sad path' do
     it 'no fragment matched' do
+      get '/api/v1/items/find_one?name=NOMATCH'
 
+      expect(response).to be_successful
+
+      ring_item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(ring_item[:data]).to be_nil
     end
   end
 end
