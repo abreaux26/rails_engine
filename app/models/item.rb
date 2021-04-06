@@ -7,4 +7,16 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :unit_price, presence: true
   validates :merchant_id, presence: true
+
+  def self.search_by_max_price(max_price)
+    where('unit_price <= ?', max_price).order(:name).first
+  end
+
+  def self.search_by_min_price(min_price)
+    where('unit_price >= ?', min_price).order(:name).first
+  end
+
+  def self.search_by_price(max_price, min_price)
+    where('unit_price between ? and ?', min_price, max_price).order(:name).first
+  end
 end

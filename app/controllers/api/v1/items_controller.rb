@@ -29,11 +29,6 @@ class Api::V1::ItemsController < ApplicationController
     item.destroy
   end
 
-  def find_one
-    item = Item.search_by_name(params[:name].downcase).first if params[:name]
-    render json: ItemSerializer.new(item)
-  end
-
   private
 
   def item_params

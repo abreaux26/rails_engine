@@ -32,7 +32,7 @@ RSpec.describe 'Find one Item API' do
 
       expect(ring_item[:data][:attributes]).to have_key(:unit_price)
       expect(ring_item[:data][:attributes][:unit_price].to_f).to be_a(Float)
-      expect(ring_item[:data][:attributes][:unit_price].to_f).to eq(@item_3.unit_price)
+      expect(ring_item[:data][:attributes][:unit_price].to_f).to eq(@item_3.unit_price.to_f)
 
       expect(ring_item[:data][:attributes]).to have_key(:merchant_id)
       expect(ring_item[:data][:attributes][:merchant_id]).to be_a(Integer)
@@ -48,7 +48,7 @@ RSpec.describe 'Find one Item API' do
 
       ring_item = JSON.parse(response.body, symbolize_names: true)
 
-      expect(ring_item[:data]).to be_nil
+      expect(ring_item[:data]).to eq([])
     end
   end
 end

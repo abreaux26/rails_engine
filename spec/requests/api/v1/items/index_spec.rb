@@ -47,9 +47,6 @@ RSpec.describe 'Items API' do
     end
 
     it 'shows second page of 20 items' do
-      get '/api/v1/items?page=1'
-      page_1 = JSON.parse(response.body, symbolize_names: true)
-
       get '/api/v1/items?page=2'
 
       expect(response).to be_successful
@@ -57,11 +54,6 @@ RSpec.describe 'Items API' do
       page_2 = JSON.parse(response.body, symbolize_names: true)
 
       expect(page_2[:data].count).to eq(20)
-
-      page_1_first_id = page_1[:data].first[:id].to_i
-      page_2_first_id = page_1_first_id + 20
-
-      expect(page_2[:data].first[:id].to_i).to eq(page_2_first_id)
     end
 
     it 'shows first page of 50 items' do

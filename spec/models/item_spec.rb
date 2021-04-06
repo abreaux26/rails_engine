@@ -14,13 +14,26 @@ RSpec.describe Item do
   end
 
   before :each do
-    @item_1 = create(:item, name: 'Turing')
-    @item_2 = create(:item, name: 'Ring World')
+    @item_1 = create(:item, name: 'Turing', unit_price: 45.00)
+    @item_2 = create(:item, name: 'Ring World', unit_price: 20.00)
+    @item_3 = create(:item, name: 'World', unit_price: 50.00)
   end
 
   describe 'class methods' do
     it '::search_by_name' do
       expect(Item.search_by_name('ring')).to eq([@item_2, @item_1])
+    end
+
+    it '::search_by_max_price' do
+      expect(Item.search_by_max_price(40)).to eq(@item_2)
+    end
+
+    it '::search_by_min_price' do
+      expect(Item.search_by_min_price(50)).to eq(@item_3)
+    end
+
+    it '::search_by_price' do
+      expect(Item.search_by_price(50, 40)).to eq(@item_1)
     end
   end
 end
