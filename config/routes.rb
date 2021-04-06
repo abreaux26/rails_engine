@@ -12,7 +12,6 @@ Rails.application.routes.draw do
         resources :merchant, controller: 'items_merchant', only: :index
         collection do
           get '/find_one(/:name)', to: 'items#find_one'
-          get '/find_all(/:name)', to: 'items#find_all'
         end
       end
     end
