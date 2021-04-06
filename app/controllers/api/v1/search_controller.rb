@@ -13,11 +13,7 @@ class Api::V1::SearchController < ApplicationController
              Item.search_by_price(params[:max_price], params[:min_price])
            end
 
-    if item.nil?
-      render json: NilSerializer.empty
-    else
-      render json: ItemSerializer.new(item)
-    end
+    render json: item.nil? ? NilSerializer.empty : ItemSerializer.new(item)
   end
 
   private
