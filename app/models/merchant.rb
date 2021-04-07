@@ -10,7 +10,7 @@ class Merchant < ApplicationRecord
     joins(items: { invoice_items: { invoice: :transactions } })
       .select('merchants.*, sum(invoice_items.quantity) as count')
       .where('transactions.result = ?', 'success')
-      .group('merchants.id')
+      .group(:id)
       .order('count desc')
       .limit(limit)
   end
@@ -22,5 +22,15 @@ class Merchant < ApplicationRecord
       .pluck(Arel.sql('sum(invoice_items.unit_price * invoice_items.quantity)'))
       .first
       .to_f
+  end
+
+  def self.revenue(limit)
+    joins(:transactions)
+      .select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) as revenue')
+      .where('transactions.result = ?', 'success')
+      .where('invoices.status = ?', 'shipped')
+      .group(:id)
+      .order('revenue desc')
+      .limit(limit)
   end
 end
