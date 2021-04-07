@@ -46,8 +46,7 @@ RSpec.describe 'Total revenue for a given merchant API' do
       expect(response).to be_successful
 
       merchant = JSON.parse(response.body, symbolize_names: true)
-      expect(merchant[:data].count).to eq(1)
-      merchant = merchant[:data][0]
+      merchant = merchant[:data]
 
       expect(merchant).to have_key(:id)
       expect(merchant[:id].to_i).to eq(@merchant_3.id)
@@ -65,7 +64,7 @@ RSpec.describe 'Total revenue for a given merchant API' do
     it 'bad integer id returns 404' do
       get "/api/v1/revenue/merchants/8923987297"
 
-      expect(response).to be_successful
+      expect(response).not_to be_successful
       expect(response.status).to eq 404
     end
   end

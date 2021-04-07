@@ -26,13 +26,13 @@ RSpec.describe Merchant do
     @invoice_1 = create(:invoice, merchant: @merchant_1)
     @invoice_2 = create(:invoice, merchant: @merchant_2)
 
-    create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2)
-    create(:invoice_item, invoice: @invoice_1, item: @item_2, quantity: 5)
-    create(:invoice_item, invoice: @invoice_1, item: @item_3, quantity: 13)
-    create(:invoice_item, invoice: @invoice_2, item: @item_4, quantity: 2)
-    create(:invoice_item, invoice: @invoice_2, item: @item_5, quantity: 6)
-    create(:invoice_item, invoice: @invoice_2, item: @item_6, quantity: 20)
-    create(:invoice_item, invoice: @invoice_2, item: @item_7, quantity: 1)
+    create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_1, item: @item_2, quantity: 5, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_1, item: @item_3, quantity: 13, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_4, quantity: 2, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_5, quantity: 6, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_6, quantity: 20, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_7, quantity: 1, unit_price: 1.00)
 
     create(:transaction, invoice: @invoice_1)
     create(:transaction, invoice: @invoice_2)
@@ -45,6 +45,12 @@ RSpec.describe Merchant do
 
     it '::most_items' do
       expect(Merchant.most_items(1)).to eq([@merchant_2])
+    end
+  end
+
+  describe 'instance methods' do
+    it '#total_revenue' do
+      expect(@merchant_1.revenue).to eq(20.00)
     end
   end
 end

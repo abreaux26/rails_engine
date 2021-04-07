@@ -14,4 +14,12 @@ class Merchant < ApplicationRecord
       .order('count desc')
       .limit(limit)
   end
+
+  def revenue
+    transactions
+    .where('transactions.result = ?', 'success')
+    .where('invoices.status = ?', 'shipped')
+    .pluck(Arel.sql('sum(invoice_items.unit_price * invoice_items.quantity)'))
+    .first.to_f
+  end
 end

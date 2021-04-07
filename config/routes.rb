@@ -11,6 +11,10 @@ Rails.application.routes.draw do
         resources :find_one, controller: :search, only: :index
       end
 
+      namespace :revenue do
+        resources :merchants, only: :show
+      end
+
       resources :merchants, only: [:index, :show] do
         resources :items, controller: :merchant_items, only: :index
       end
