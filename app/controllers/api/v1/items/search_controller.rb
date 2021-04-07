@@ -9,18 +9,4 @@ class Api::V1::Items::SearchController < ApplicationController
 
     render json: item.nil? ? NilSerializer.empty : ItemSerializer.new(item)
   end
-
-  private
-
-  def invalid_params?
-    name_and_price? || negative_price?
-  end
-
-  def name_and_price?
-    params[:name] && (params[:max_price] || params[:min_price])
-  end
-
-  def negative_price?
-    params[:max_price].to_i.negative? || params[:min_price].to_i.negative?
-  end
 end
