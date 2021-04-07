@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'Merchants who sold most items API' do
+RSpec.describe 'Total revenue for a given merchant API' do
   before :each do
     @merchant_1 = create(:merchant)
     @merchant_2 = create(:merchant)
@@ -22,16 +22,16 @@ RSpec.describe 'Merchants who sold most items API' do
     @invoice_3 = create(:invoice, merchant: @merchant_3)
     @invoice_4 = create(:invoice, merchant: @merchant_4)
 
-    create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2)
-    create(:invoice_item, invoice: @invoice_1, item: @item_2, quantity: 6)
-    create(:invoice_item, invoice: @invoice_2, item: @item_3, quantity: 7)
-    create(:invoice_item, invoice: @invoice_2, item: @item_4, quantity: 20)
-    create(:invoice_item, invoice: @invoice_2, item: @item_5, quantity: 55)
-    create(:invoice_item, invoice: @invoice_2, item: @item_6, quantity: 3)
-    create(:invoice_item, invoice: @invoice_3, item: @item_7, quantity: 17)
-    create(:invoice_item, invoice: @invoice_3, item: @item_8, quantity: 1)
-    create(:invoice_item, invoice: @invoice_3, item: @item_9, quantity: 4)
-    create(:invoice_item, invoice: @invoice_4, item: @item_10, quantity: 9)
+    create(:invoice_item, invoice: @invoice_1, item: @item_1, quantity: 2, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_1, item: @item_2, quantity: 6, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_3, quantity: 7, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_4, quantity: 20, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_5, quantity: 55, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_2, item: @item_6, quantity: 3, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_3, item: @item_7, quantity: 17, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_3, item: @item_8, quantity: 1, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_3, item: @item_9, quantity: 4, unit_price: 1.00)
+    create(:invoice_item, invoice: @invoice_4, item: @item_10, quantity: 9, unit_price: 1.00)
 
     create(:transaction, invoice: @invoice_1, result: 'failed')
     create(:transaction, invoice: @invoice_2, result: 'failed')
@@ -40,8 +40,8 @@ RSpec.describe 'Merchants who sold most items API' do
   end
 
   describe 'happy path' do
-    it 'shows 2 merchants with most items sold' do
-      get '/api/v1/merchants/most_items?quantity=2'
+    it 'most revenue for merchants' do
+      get "/api/v1/revenue/merchants?quantity=2"
 
       expect(response).to be_successful
 
@@ -54,18 +54,18 @@ RSpec.describe 'Merchants who sold most items API' do
         expect(merchant[:id].to_i).to be_an(Integer)
 
         expect(merchant).to have_key(:type)
-        expect(merchant[:type]).to eq('items_sold')
+        expect(merchant[:type]).to eq('merchant_name_revenue')
 
         expect(merchant[:attributes]).to have_key(:name)
         expect(merchant[:attributes][:name]).to be_a(String)
 
-        expect(merchant[:attributes]).to have_key(:count)
-        expect(merchant[:attributes][:count]).to be_a(Integer)
+        expect(merchant[:attributes]).to have_key(:revenue)
+        expect(merchant[:attributes][:revenue]).to be_a(Float)
       end
     end
 
-    it 'shows top merchant with most items sold' do
-      get '/api/v1/merchants/most_items?quantity=1'
+    it 'top one merchant by revenue' do
+      get "/api/v1/revenue/merchants?quantity=1"
 
       expect(response).to be_successful
 
@@ -74,20 +74,20 @@ RSpec.describe 'Merchants who sold most items API' do
       merchant = merchant[:data][0]
 
       expect(merchant).to have_key(:id)
-      expect(merchant[:id].to_i).to eq(@merchant_3.id)
+      expect(merchant[:id].to_i).to be_an(Integer)
 
       expect(merchant).to have_key(:type)
-      expect(merchant[:type]).to eq('items_sold')
+      expect(merchant[:type]).to eq('merchant_name_revenue')
 
       expect(merchant[:attributes]).to have_key(:name)
       expect(merchant[:attributes][:name]).to eq(@merchant_3.name)
 
-      expect(merchant[:attributes]).to have_key(:count)
-      expect(merchant[:attributes][:count]).to eq(22)
+      expect(merchant[:attributes]).to have_key(:revenue)
+      expect(merchant[:attributes][:revenue]).to eq(@merchant_3.revenue)
     end
 
     it 'shows all 2 merchants if quantity is too big' do
-      get '/api/v1/merchants/most_items?quantity=1000'
+      get "/api/v1/revenue/merchants?quantity=10000"
 
       expect(response).to be_successful
 
@@ -98,22 +98,22 @@ RSpec.describe 'Merchants who sold most items API' do
   end
 
   describe 'sad path' do
-    it 'returns 400 if quantity value is blank' do
-      get '/api/v1/merchants/most_items?quantity='
+    it 'returns 400 if quantity is a string' do
+      get '/api/v1/revenue/merchants?quantity='
 
       expect(response).not_to be_successful
       expect(response.status).to eq 400
     end
 
     it 'returns 400 if quantity is a string' do
-      get '/api/v1/merchants/most_items?quantity=asdasd'
+      get '/api/v1/revenue/merchants?quantity=asdasd'
 
       expect(response).not_to be_successful
       expect(response.status).to eq 400
     end
 
-    it 'returns 400 if quantity param is missing' do
-      get '/api/v1/merchants/most_items'
+    it 'quantity param is missing' do
+      get '/api/v1/revenue/merchants'
 
       expect(response).not_to be_successful
       expect(response.status).to eq 400

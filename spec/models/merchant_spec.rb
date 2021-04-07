@@ -46,10 +46,14 @@ RSpec.describe Merchant do
     it '::most_items' do
       expect(Merchant.most_items(1)).to eq([@merchant_2])
     end
+
+    it '::revenue' do
+      expect(Merchant.revenue(2)).to eq([@merchant_2, @merchant_1])
+    end
   end
 
   describe 'instance methods' do
-    it '#total_revenue' do
+    it '#revenue' do
       expect(@merchant_1.revenue).to eq(20.00)
     end
   end
