@@ -12,14 +12,10 @@ Rails.application.routes.draw do
 
       resources :merchants, only: [:index, :show] do
         resources :items, controller: :merchant_items, only: :index
-        # get :find_all, on: :collection, controller: :search
       end
-      # find_one_api_v1_items GET    /api/v1/items/find_one(.:format)  api/v1/search#find_one
 
       resources :items do
         resources :merchant, controller: :items_merchant, only: :index
-        # get :find_one, on: :collection, controller: :search
-        # resources :find_one, on: :collection, controller: :search
       end
     end
   end
