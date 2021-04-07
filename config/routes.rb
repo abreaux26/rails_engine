@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :merchants do
         resources :find_all, controller: :search, only: :index
+        resources :most_items, only: :index
       end
 
       namespace :items do
