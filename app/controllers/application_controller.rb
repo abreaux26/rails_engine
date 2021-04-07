@@ -24,6 +24,10 @@ class ApplicationController < ActionController::API
     params[:max_price].to_i.negative? || params[:min_price].to_i.negative?
   end
 
+  def invalid_quantity?
+    params[:quantity].to_i <= 0
+  end
+
   private
 
   def record_not_found
