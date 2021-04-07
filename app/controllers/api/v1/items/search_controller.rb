@@ -1,6 +1,7 @@
 class Api::V1::Items::SearchController < ApplicationController
   def index
     return record_bad_request if invalid_params?
+
     item = if params[:name]
              Item.search_by_name(params[:name].downcase).first
            else

@@ -7,6 +7,5 @@ class Invoice < ApplicationRecord
 
   validates :customer_id, presence: true
   validates :merchant_id, presence: true
-
-  enum status: { packaged: 0, shipped: 1, returned: 2 }
+  validates :status, presence: true
 end

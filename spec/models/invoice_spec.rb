@@ -11,6 +11,6 @@ RSpec.describe Invoice do
   describe 'validations' do
     it { should validate_presence_of :customer_id }
     it { should validate_presence_of :merchant_id }
-    it { should define_enum_for(:status).with(packaged: 0, shipped: 1, returned: 2) }
+    it { should validate_presence_of :status }
   end
 end
