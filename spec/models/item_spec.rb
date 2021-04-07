@@ -35,8 +35,18 @@ RSpec.describe Item do
       expect(Item.search_by_min_price(50)).to eq(@item_3)
     end
 
-    it '::search_by_price' do
-      expect(Item.search_by_price(50, 40)).to eq(@item_1)
+    describe '::search_by_price' do
+      it 'max and min price' do
+        expect(Item.search_by_price(50, 40)).to eq(@item_1)
+      end
+
+      it 'min price ony' do
+        expect(Item.search_by_price(40, nil)).to eq(@item_2)
+      end
+
+      it 'max price ony' do
+        expect(Item.search_by_price(nil, 50)).to eq(@item_3)
+      end
     end
   end
 
