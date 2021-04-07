@@ -17,9 +17,10 @@ class Merchant < ApplicationRecord
 
   def revenue
     transactions
-    .where('transactions.result = ?', 'success')
-    .where('invoices.status = ?', 'shipped')
-    .pluck(Arel.sql('sum(invoice_items.unit_price * invoice_items.quantity)'))
-    .first.to_f
+      .where('transactions.result = ?', 'success')
+      .where('invoices.status = ?', 'shipped')
+      .pluck(Arel.sql('sum(invoice_items.unit_price * invoice_items.quantity)'))
+      .first
+      .to_f
   end
 end
