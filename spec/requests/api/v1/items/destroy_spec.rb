@@ -16,7 +16,7 @@ RSpec.describe 'Destroy Item API' do
       expect{Item.find(@item.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it 'can destory an invoice' do
+    it 'can destory an invoice and invoice item' do
       expect{ delete "/api/v1/items/#{@item.id}" }.to change(Item, :count).by(-1)
       expect(response.status).to eq 204
 
@@ -29,10 +29,9 @@ RSpec.describe 'Destroy Item API' do
     it 'cannot destory an invoice because it is linked to another item' do
       @item_2 = create(:item)
       @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice)
-
+      
       expect{ delete "/api/v1/items/#{@item.id}" }.to change(Item, :count).by(-1)
       expect(response.status).to eq 204
-
       expect(Invoice.find(@invoice.id)).to eq(@invoice)
       expect(InvoiceItem.find(@invoice_item_2.id)).to eq(@invoice_item_2)
       expect{InvoiceItem.find(@invoice_item.id)}.to raise_error(ActiveRecord::RecordNotFound)

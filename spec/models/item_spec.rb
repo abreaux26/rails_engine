@@ -51,22 +51,8 @@ RSpec.describe Item do
 
     it '::revenue' do
       create(:transaction, invoice: @invoice)
-      
+
       expect(Item.revenue(1)).to eq([@item_1])
-    end
-  end
-
-  describe 'instance methods' do
-    describe '#destory_invoices' do
-      it 'can destroy an invoice' do
-        expect(@item_1.destroy_invoices).to eq([@invoice])
-      end
-
-      it 'cannot destroy an invoice' do
-        @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice)
-
-        expect(@item_2.destroy_invoices).to eq([nil])
-      end
     end
   end
 end

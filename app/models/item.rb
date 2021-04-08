@@ -34,10 +34,4 @@ class Item < ApplicationRecord
     .order('revenue desc')
     .limit(limit)
   end
-
-  def destroy_invoices
-    invoices.map do |invoice|
-      invoice.destroy if invoice.invoice_items.all? { |ii| ii.item_id == id }
-    end
-  end
 end
