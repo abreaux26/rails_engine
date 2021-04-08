@@ -55,4 +55,30 @@ RSpec.describe Item do
       expect(Item.revenue(1)).to eq([@item_1])
     end
   end
+
+  describe 'instance methods' do
+    describe '#invoices_to_destory' do
+      it 'returns invoices to destroy' do
+        expect(@item_1.invoices_to_destory).to eq([@invoice])
+      end
+
+      it 'returns invoices to destroy' do
+        @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice)
+
+        expect(@item_2.invoices_to_destory).to eq([])
+      end
+    end
+
+    describe '#destroy_invoices' do
+      it 'destroys invoice' do
+        expect(@item_1.destroy_invoices).to eq([@invoice])
+      end
+
+      it 'does not destroy invoice' do
+        @invoice_item_2 = create(:invoice_item, item: @item_2, invoice: @invoice)
+
+        expect(@item_2.destroy_invoices).to eq([])
+      end
+    end
+  end
 end

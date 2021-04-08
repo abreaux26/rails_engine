@@ -34,4 +34,15 @@ class Item < ApplicationRecord
     .order('revenue desc')
     .limit(limit)
   end
+
+  def destroy_invoices
+    invoices_to_destory.destroy_all
+  end
+
+  def invoices_to_destory
+    invoices.joins(:items)
+    .select("invoices.*, count(items.*)")
+    .group('invoices.id')
+    .having("count(items.*) = 1")
+  end
 end
