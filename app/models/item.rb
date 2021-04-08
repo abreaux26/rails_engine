@@ -25,6 +25,16 @@ class Item < ApplicationRecord
     end
   end
 
+  def self.revenue(limit)
+    joins(invoices: :transactions)
+    .select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
+    .where('transactions.result = ?', 'success')
+    .where('invoices.status = ?', 'shipped')
+    .group(:id)
+    .order('revenue desc')
+    .limit(limit)
+  end
+
   def destroy_invoices
     invoices.map do |invoice|
       invoice.destroy if invoice.invoice_items.all? { |ii| ii.item_id == id }

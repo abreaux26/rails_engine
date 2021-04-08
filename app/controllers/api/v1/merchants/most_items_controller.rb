@@ -5,4 +5,10 @@ class Api::V1::Merchants::MostItemsController < ApplicationController
     merchants = Merchant.most_items(params[:quantity])
     render json: ItemsSoldSerializer.new(merchants)
   end
+
+  private
+
+  def invalid_quantity?
+    params[:quantity].to_i <= 0
+  end
 end

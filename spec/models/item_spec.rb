@@ -19,7 +19,7 @@ RSpec.describe Item do
     @item_3 = create(:item, name: 'World', unit_price: 50.00)
 
     @invoice = create(:invoice)
-    @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice)
+    @invoice_item_1 = create(:invoice_item, item: @item_1, invoice: @invoice, quantity: 2, unit_price: 5.00)
   end
 
   describe 'class methods' do
@@ -47,6 +47,12 @@ RSpec.describe Item do
       it 'max price ony' do
         expect(Item.search_by_price(nil, 50)).to eq(@item_3)
       end
+    end
+
+    it '::revenue' do
+      create(:transaction, invoice: @invoice)
+      
+      expect(Item.revenue(1)).to eq([@item_1])
     end
   end
 

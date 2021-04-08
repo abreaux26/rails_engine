@@ -98,7 +98,7 @@ RSpec.describe 'Total revenue for a given merchant API' do
   end
 
   describe 'sad path' do
-    it 'returns 400 if quantity is a string' do
+    it 'returns 400 if quantity value is blank' do
       get '/api/v1/revenue/merchants?quantity='
 
       expect(response).not_to be_successful
