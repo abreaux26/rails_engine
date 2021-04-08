@@ -27,12 +27,12 @@ class Item < ApplicationRecord
 
   def self.revenue(limit)
     joins(invoices: :transactions)
-    .select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
-    .where('transactions.result = ?', 'success')
-    .where('invoices.status = ?', 'shipped')
-    .group(:id)
-    .order('revenue desc')
-    .limit(limit)
+      .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+      .where('transactions.result = ?', 'success')
+      .where('invoices.status = ?', 'shipped')
+      .group(:id)
+      .order('revenue desc')
+      .limit(limit)
   end
 
   def destroy_invoices
@@ -41,8 +41,8 @@ class Item < ApplicationRecord
 
   def invoices_to_destory
     invoices.joins(:items)
-    .select("invoices.*, count(items.*)")
-    .group('invoices.id')
-    .having("count(items.*) = 1")
+            .select('invoices.*, count(items.*)')
+            .group('invoices.id')
+            .having('count(items.*) = 1')
   end
 end
