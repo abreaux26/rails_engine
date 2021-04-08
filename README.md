@@ -89,7 +89,3 @@ Below are two examples of a happy and sad path when trying to destroy an invoice
 ## Authors
 
   - [Angel Breaux](https://github.com/abreaux26)
-
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
