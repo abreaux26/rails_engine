@@ -14,12 +14,6 @@ An E-Commerce Application with a service-oriented architecture. This software ex
 These instructions will get you a copy of the project up and running on
 your local machine for development and testing purposes.
 
-### Prerequisites
-
-    Fork and clone this repo
-    bundle install
-    rails db:{drop,create,migrate,seed}
-
 ### Installing
 
 1. Fork and clone the repo
