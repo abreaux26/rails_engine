@@ -32,7 +32,7 @@ puts cmd
 system(cmd)
 ```
 4. Download [rails-engine-development.pgdump](https://raw.githubusercontent.com/turingschool/backend-curriculum-site/gh-pages/module3/projects/rails_engine/rails-engine-development.pgdump) and move it into the `/db/` folder in another folder called `/data/`
-5. Run `rails db:{drop,create,migrate,seed}
+5. Run `rails db:{drop,create,migrate,seed}`
 6. Run tests (See Runing the tests](#running-the-tests) section for more details)
     `bundle exec rspec`
 7. Start localhostserver
