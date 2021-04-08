@@ -70,6 +70,17 @@ Below are two examples of a happy and sad path when trying to destroy an invoice
 * I used `RuboCop` - static code analyzer and code formatter
 * Steps to install [RuboCop](https://github.com/rubocop/rubocop)
 
+## Built With
+* Ruby on Rails
+* PostgreSQL
+* Faker
+* FactoryBot
+* RuboCop
+* Capybara
+* Fast JsonAPI
+* RSpec
+* Simplecov
+
 ## Authors
 
   - [Angel Breaux](https://github.com/abreaux26)
