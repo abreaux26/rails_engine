@@ -14,40 +14,24 @@ An E-Commerce Application with a service-oriented architecture. This software ex
 These instructions will get you a copy of the project up and running on
 your local machine for development and testing purposes.
 
-### Prerequisites
-
-    Fork and clone this repo
-    bundle install
-    rails db:{drop,create,migrate,seed}
-
 ### Installing
 
 1. Fork and clone the repo
-
-2. Install the gem package
-
-    `bundle install`
-
-3. Create the database
-
-    `rails db:create`
-
-4. Migrate the existing Schema
-
-    `rails db:migrate`
-
-Optional: Seed the datebase
-    `rails db:seed`
-
-5. Run tests (See Runing the tests](#running-the-tests) section for more details)
-
+2. `bundle install`
+3. Set up db/seeds.rb file with the following content:
+```
+cmd = "pg_restore --verbose --clean --no-acl --no-owner -h localhost -U $(whoami) -d rails-engine_development db/data/rails-engine-development.pgdump"
+puts "Loading PostgreSQL Data dump into local database with command:"
+puts cmd
+system(cmd)
+```
+4. Download [rails-engine-development.pgdump](https://raw.githubusercontent.com/turingschool/backend-curriculum-site/gh-pages/module3/projects/rails_engine/rails-engine-development.pgdump) and move it into the `/db/` folder in another folder called `/data/`
+5. Run `rails db:{drop,create,migrate,seed}`
+6. Run tests (See Runing the tests](#running-the-tests) section for more details)
     `bundle exec rspec`
-
-6. Start localhostserver
-
+7. Start localhostserver
     `rails s`
-
-7. Access localhost server in browser
+8. Access localhost server in browser
 
     `localhost:3000`
 
@@ -85,6 +69,17 @@ Below are two examples of a happy and sad path when trying to destroy an invoice
 
 * I used `RuboCop` - static code analyzer and code formatter
 * Steps to install [RuboCop](https://github.com/rubocop/rubocop)
+
+## Built With
+* Ruby on Rails
+* PostgreSQL
+* Faker
+* FactoryBot
+* RuboCop
+* Capybara
+* Fast JsonAPI
+* RSpec
+* Simplecov
 
 ## Authors
 
